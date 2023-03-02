@@ -185,7 +185,7 @@ export const ModalDiv = styled.div`
 /*
  * Стили компонента Buton (Load more)
  */
-export const Button = styled.button`
+export const LoadMore = styled.button`
   padding: 8px 16px;
   border-radius: 2px;
   background-color: #3f51b5;
