@@ -11,12 +11,17 @@ export class App extends Component {
     searchImg: '',
   };
 
+  changeState = ({ searchImg }) => {
+    this.setState({ searchImg: { searchImg } })
+  }
+
   render() {
+    console.log(this.state)
     return (
       <div>
         <GlobalStyle />
-        <Searchbar />
-        <ImageGallery />
+        <Searchbar onSubmit={this.changeState} />
+        <ImageGallery gallery={this.state.searchImg} />
         <Loader />
         <Button />
         {/* <Modal /> */}

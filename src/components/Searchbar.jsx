@@ -9,9 +9,10 @@ import React, { Component } from 'react';
 import { Formik } from 'formik';
 
 export class Searchbar extends Component {
-  handleSubmit = ({ searchImg }, { resetForm }) => {
-    const img = { searchImg };
+  handleSubmit = ({ searchImg } , { resetForm }) => {
+    const img = { searchImg } ;
     this.props.onSubmit(img);
+    console.log('p', this.props)
     resetForm();
   };
 
@@ -25,6 +26,7 @@ export class Searchbar extends Component {
             </SearchFormButton>
 
             <SearchFormInput
+              name="images"
               type="text"
               autocomplete="off"
               autoFocus
