@@ -18,7 +18,7 @@ export class Searchbar extends Component {
   render() {
     return (
       <Header>
-        <Formik initialValues={{}} onSubmit={this.handleSubmit}>
+        <Formik initialValues={{ searchImg: '' }} onSubmit={this.handleSubmit}>
           <SearchForm>
             <SearchFormButton type="submit">
               <SearchFormButtonLabel>Search</SearchFormButtonLabel>
