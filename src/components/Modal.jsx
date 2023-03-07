@@ -1,12 +1,42 @@
-import * as basicLightbox from 'basiclightbox';
+// import * as basicLightbox from 'basiclightbox';
 import { Overlay, ModalDiv } from './Globalstyle';
+import PropTypes from 'prop-types';
+import { Component } from 'react';
 
-export const Modal = ({ largeImageURL, tags }) => {
-  return basicLightbox.create(
-    <Overlay>
-      <ModalDiv>
-        <img src={largeImageURL} alt={tags} />
-      </ModalDiv>
-    </Overlay>
-  );
+export class Modal extends Component {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+    imgUrl: PropTypes.string,
+    imageTags: PropTypes.string,
+  };
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
+  };
+
+  handleBackdropClick = e => {
+    if (e.target === e.currentTarget) {
+      this.props.onClose();
+    }
+  };
+
+  render() {
+    return (
+      <Overlay onClick={this.handleBackdropClick}>
+        <ModalDiv>
+          <img src={this.props.imgUrl} alt={this.props.imageTags} />
+        </ModalDiv>
+      </Overlay>
+    );
+  }
 };

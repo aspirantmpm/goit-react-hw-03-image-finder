@@ -1,5 +1,15 @@
 import { LoadMore } from './Globalstyle';
+import PropTypes from 'prop-types';
 
-export const Button = () => {
-    return <LoadMore type="button">Load more</LoadMore>;
+
+export function Button({ onClick }) {
+  return (
+    <LoadMore type="button" onClick={onClick}>
+      Load more
+    </LoadMore>
+  );
 }
+
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
