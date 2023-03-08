@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Toaster, toast } from 'react-hot-toast'
+import { Toaster, toast } from 'react-hot-toast';
 import fetchImages from './fetch';
 import { GlobalStyle } from './Globalstyle';
 import { Searchbar } from './Searchbar';
@@ -49,11 +49,14 @@ export class App extends Component {
             imagesOnPage: hits.length,
           });
         })
-        .catch((error) => {
+        
+        .catch(error => {
           this.setState({ error });
-          toast.error('Sorry, something went wrong. Please try again later.')
+          toast.error('Sorry, something went wrong. Please try again later.');
         })
-        .finally(() => this.turnOffLoader());
+        .finally(() => {
+          this.turnOffLoader();
+        });
     }
 
     if (nextPage > prevPage) {
@@ -116,7 +119,6 @@ export class App extends Component {
   };
 
   render() {
-    // console.log(this.state.searchInput)
     const {
       images,
       isLoading,
@@ -124,26 +126,27 @@ export class App extends Component {
       currentLargeImageUrl,
       currentImageTags,
       imagesOnPage,
-      totalHits,
     } = this.state;
 
     return (
-      <div >
+      <div>
         <GlobalStyle />
         <Toaster
-          position='top-left'
+          position="top-left"
           toastOptions={{
             duration: 2000,
-          }} />
+          }}
+        />
         <Searchbar onSubmit={this.formSubmitHandler} />
         {images && <ImageGallery images={images} openModal={this.openModal} />}
 
         {isLoading && <Loader />}
-        
-        {imagesOnPage >= 12 && imagesOnPage < totalHits && (
-          <Button onClick={this.nextFetch} />
-        )}
-        
+
+        {imagesOnPage > 0 &&
+          this.state.page < Math.ceil(this.state.totalHits / 12) && (
+            <Button onClick={this.nextFetch} />
+          )}
+
         {showModal && (
           <Modal
             imageUrl={currentLargeImageUrl}
@@ -151,8 +154,7 @@ export class App extends Component {
             onClose={this.toggleModal}
           />
         )}
-
       </div>
     );
   }
-};
+}
